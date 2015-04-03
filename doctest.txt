@@ -1,0 +1,40 @@
+time_diff 関数のテスト
+----------------------------
+	>>> from recagqr import time_diff
+	>>> import datetime as dt
+
+ごく普通のケース
+	>>> t1 = dt.time(22,59,0)
+	>>> t2 = dt.time(23,0,0)
+	>>> time_diff(t1,t2) < dt.timedelta(minutes=2)
+	True
+
+ちょっと遅れたケース
+	>>> t1 = dt.time(23,0,10)
+	>>> t2 = dt.time(23,0,0)
+	>>> time_diff(t1,t2) < dt.timedelta(minutes=2)
+	True
+
+かなり遅れたケース
+	>>> t1 = dt.time(23,0,0)
+	>>> t2 = dt.time(22,0,0)
+	>>> time_diff(t1,t2) < dt.timedelta(minutes=2)
+	False
+
+日をまたぐケース
+	>>> t1 = dt.time(23,59,0)
+	>>> t2 = dt.time(0,0,0)
+	>>> time_diff(t1,t2) < dt.timedelta(minutes=2)
+	True
+
+日をまたぐ&かなり遅れたケース
+	>>> t1 = dt.time(23,59,0)
+	>>> t2 = dt.time(1,0,0)
+	>>> time_diff(t1,t2) < dt.timedelta(minutes=2)
+	False
+
+日をまたぐ&ちょっと遅れたケース
+	>>> t1 = dt.time(0,0,10)
+	>>> t2 = dt.time(0,0,0)
+	>>> time_diff(t1,t2) < dt.timedelta(minutes=2)
+	True
