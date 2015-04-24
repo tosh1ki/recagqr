@@ -1,10 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-__author__ = 'tosh1ki'
-__email__ = 'tosh1ki@yahoo.co.jp'
-__date__ = '2015-03-12'
-
 
 import os
 import subprocess
@@ -28,7 +24,7 @@ def time_diff(t1, t2):
 if __name__ == '__main__':
     rtmpdump = os.path.expanduser('~/RTMPDump/rtmpdump/rtmpdump')
     save_dir = os.path.expanduser('~/RTMPDump/recdata')
-    schedule = os.path.expanduser('~/Dropbox/rsrcs/blog/recagqr/schedule.yaml')
+    schedule = os.path.expanduser('~/RTMPDump/schedule.yaml')
 
     agqr_stream_url = 'rtmp://fms-base1.mitene.ad.jp/agqr/aandg22'
     now = dt.datetime.today()
