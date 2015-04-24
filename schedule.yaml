@@ -1,7 +1,3 @@
-- title: ladygo_wed
-  wday: 水
-  time: '17:00'
-  length: 60
 - title: mu_n
   wday: 月
   time: '22:00'
@@ -18,6 +14,10 @@
   wday: 水
   time: '1:00'
   length: 30
+- title: ladygo_wed
+  wday: 水
+  time: '20:00'
+  length: 60
 - title: dekirukana
   wday: 水
   time: '21:00'
@@ -30,14 +30,22 @@
   wday: 木
   time: '21:00'
   length: 60
-- title: take.2h
+- title: ozanari
   wday: 金
-  time: '19:00'
+  time: '0:30'
+  length: 30
+- title: take
+  wday: 金
+  time: '18:00'
   length: 120
 - title: zeni
   wday: 金
   time: '23:30'
   length: 30
+- title: agson
+  wday: 土
+  time: '21:00'
+  length: 120
 - title: comcha
   wday: 土
   time: '23:00'
@@ -50,7 +58,15 @@
   wday: 日
   time: '1:30'
   length: 30
+- title: gifuu
+  wday: 日
+  time: '20:00'
+  length: 30
 - title: komei
   wday: 日
   time: '23:30'
   length: 30
+- title: test
+  wday: 土
+  time: '1:00'
+  length: 5
