@@ -14,18 +14,10 @@
   wday: 水
   time: '1:00'
   length: 30
-- title: ladygo_wed
-  wday: 水
-  time: '20:00'
-  length: 60
 - title: dekirukana
   wday: 水
   time: '21:00'
   length: 60
-- title: ojikan
-  wday: 水
-  time: '23:00'
-  length: 30
 - title: gera
   wday: 木
   time: '21:00'
@@ -42,22 +34,10 @@
   wday: 金
   time: '23:30'
   length: 30
-- title: agson
-  wday: 土
-  time: '21:00'
-  length: 120
 - title: comcha
   wday: 土
   time: '23:00'
   length: 60
-- title: adlib
-  wday: 日
-  time: '1:00'
-  length: 30
-- title: high
-  wday: 日
-  time: '1:30'
-  length: 30
 - title: gifuu
   wday: 日
   time: '20:00'
@@ -65,4 +45,8 @@
 - title: komei
   wday: 日
   time: '23:30'
+  length: 30
+- title: gatcha
+  wday: 月
+  time: '0:30'
   length: 30
