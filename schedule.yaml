@@ -2,6 +2,10 @@
   wday: 月
   time: '22:00'
   length: 60
+- title: asuka
+  wday: 火
+  time: '0:00'
+  length: 30
 - title: it_kakumei
   wday: 火
   time: '21:00'
@@ -14,18 +18,10 @@
   wday: 水
   time: '1:00'
   length: 30
-- title: dekirukana
-  wday: 水
-  time: '21:00'
-  length: 60
 - title: gera
   wday: 木
   time: '21:00'
   length: 60
-- title: ozanari
-  wday: 金
-  time: '0:30'
-  length: 30
 - title: take
   wday: 金
   time: '18:00'
@@ -38,6 +34,10 @@
   wday: 土
   time: '23:00'
   length: 60
+- title: di
+  wday: 日
+  time: '3:00'
+  length: 30
 - title: gifuu
   wday: 日
   time: '20:00'
@@ -45,8 +45,4 @@
 - title: komei
   wday: 日
   time: '23:30'
-  length: 30
-- title: gatcha
-  wday: 月
-  time: '0:30'
   length: 30
