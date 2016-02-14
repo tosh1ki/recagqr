@@ -5,12 +5,12 @@
 __doc__ = '''Record AGQR
 
 Usage:
-    recagqr.py --rtmpdump <rtmpdump> --schedule <schedule> --savedir <savedir>
+    recagqr.py --schedule <schedule> --savedir <savedir> [--rtmpdump <rtmpdump>]
 
 Options:
-    --rtmpdump <rtmpdump>  path of rtmpdump
     --schedule <schedule>  path of schedule file of yaml format
     --savedir <savedir>  path of output directory
+    --rtmpdump <rtmpdump>  (optional) path of rtmpdump [default: /usr/local/bin/rtmpdump]
 '''
 
 
