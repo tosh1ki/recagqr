@@ -3,10 +3,23 @@
 
 
 import os
+__doc__ = '''Record AGQR
+
+Usage:
+    recagqr.py --rtmpdump <rtmpdump> --schedule <schedule> --savedir <savedir>
+
+Options:
+    --rtmpdump <rtmpdump>  path of rtmpdump
+    --schedule <schedule>  path of schedule file of yaml format
+    --savedir <savedir>  path of output directory
+'''
+
+
 import subprocess
 import yaml
 import time
 import datetime as dt
+from docopt import docopt
 
 
 def time_diff(t1, t2):
@@ -22,9 +35,10 @@ def time_diff(t1, t2):
 
 
 if __name__ == '__main__':
-    rtmpdump = os.path.expanduser('~/RTMPDump/rtmpdump/rtmpdump')
-    save_dir = os.path.expanduser('~/RTMPDump/recdata')
-    schedule = os.path.expanduser('~/RTMPDump/schedule.yaml')
+    args = docopt(__doc__)
+    rtmpdump = args['--rtmpdump']
+    schedule = args['--schedule']
+    save_dir = args['--savedir']
 
     agqr_stream_url = 'rtmp://fms-base1.mitene.ad.jp/agqr/aandg22'
     now = dt.datetime.today()
