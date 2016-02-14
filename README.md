@@ -12,7 +12,7 @@ agqrの番組を録画するためのプログラム
 ## schedule.yaml
 予約設定ファイル
 
-  例えば『井口裕香のむ〜〜〜ん ⊂（　＾ω＾）⊃』を録画したい場合は以下のようにする．
+例えば『井口裕香のむ〜〜〜ん ⊂（　＾ω＾）⊃』を録画したい場合は以下のようにする．
 
 ```yaml
 - title: mu_n
@@ -29,30 +29,25 @@ agqrの番組を録画するためのプログラム
 ## crontab.bk
 crontabの設定ファイルのバックアップ
 
-`contab -e` でcrontabに設定後，以下のコマンドを実行して生成する．
+`crontab -e` でcrontabに設定後，以下のコマンドを実行して生成する．
 
 ```sh
-crontab -l > crontab.bk
+crontab -l > ~/crontab.bk
 ```
 
 crontab に指定するコマンドは絶対パスで指定しないとエラーになる．
 
 ```sh
 MAILTO=""
-29,59 * * * * python3 /path/to/recagqr.py >> /path/to/cron.log
+29,59 * * * * python3 /path/to/recagqr.py --rtmpdump /usr/local/bin/rtmpdump --schedule /path/to/schedule.yaml --savedir /path/to/recdata >> /path/to/cron-recagqr.log
 ```
 
-# その他メモ
-## 実行ログの確認
+# 実行ログの確認
 
 ```sh
 tail /var/log/syslog
-tail ~/RTMPDump/cron.log
+tail ~/cron-recagqr.log
 ```
-
-## Windowsにファイルを転送する
-Ubuntu の nautilus の 「サーバーへ接続」で `smb://192.168.11.3` などと入力して Windows に接続，手動でファイルを移す．
-
 
 # リンク
 
