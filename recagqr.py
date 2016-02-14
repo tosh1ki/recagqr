@@ -42,9 +42,9 @@ if __name__ == '__main__':
     save_dir = args['--savedir']
 
     agqr_stream_url = 'rtmp://fms-base1.mitene.ad.jp/agqr/aandg22'
-    now = dt.datetime.today()
 
     wday = dict(zip(tuple('月火水木金土日'), range(7)))
+    datetime_now = dt.datetime.today()
 
     with open(schedule, 'r') as f:
         schedule_yaml = yaml.load(f)
@@ -60,16 +60,16 @@ if __name__ == '__main__':
 
         # 0:00に始まる番組だった場合:
         if hour == 0 and minute == 0:
-            next_wday = (now.weekday() + 1) % 7
+            next_wday = (datetime_now.weekday() + 1) % 7
             is_appropriate_wday = (program_wday == next_wday)
-            program_date = now.date() + dt.timedelta(days=+1)
+            program_date = datetime_now.date() + dt.timedelta(days=+1)
         else:
-            is_appropriate_wday = (program_wday == now.weekday())
-            program_date = now.date()
+            is_appropriate_wday = (program_wday == datetime_now.weekday())
+            program_date = datetime_now.date()
 
         # 番組が2分以内に始まる/始まったか?
         is_appropriate_time \
-            = time_diff(now.time(), program_time) < dt.timedelta(minutes=2)
+            = time_diff(datetime_now.time(), program_time) < dt.timedelta(minutes=2)
 
         if is_appropriate_wday and is_appropriate_time:
             program_start = dt.datetime.combine(program_date, program_time)
