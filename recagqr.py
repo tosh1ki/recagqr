@@ -4,6 +4,9 @@
 
 __doc__ = '''Record AGQR
 
+`wday` means "day of the week".
+
+
 Usage:
     recagqr.py --schedule <schedule> --savedir <savedir> [--rtmpdump <rtmpdump>]
 
@@ -37,51 +40,47 @@ if __name__ == '__main__':
 
     # コマンドライン引数の取得
     args = docopt(__doc__)
-    rtmpdump = args['--rtmpdump']
-    schedule = args['--schedule']
-    save_dir = args['--savedir']
+    path_rtmpdump = args['--rtmpdump']
+    path_schedule = args['--schedule']
+    path_savedir = args['--savedir']
 
-    agqr_stream_url = 'rtmp://fms-base1.mitene.ad.jp/agqr/aandg22'
-    now = dt.datetime.today()
+    datetime_now = dt.datetime.today()
+    URL_AGQR_STREAM = 'rtmp://fms-base1.mitene.ad.jp/agqr/aandg22'
+    wday_to_int = dict(zip(tuple('月火水木金土日'), range(7)))
 
-    wday = dict(zip(tuple('月火水木金土日'), range(7)))
-
-    with open(schedule, 'r') as f:
-        schedule_yaml = yaml.load(f)
+    with open(path_schedule, 'r') as f:
+        schedules = yaml.load(f)
 
     # 60秒前にcronが起動するので45秒sleepさせておく
     # ちょうどCM一本分の余裕になる(はず)
     time.sleep(45)
 
-    for program in schedule_yaml:
+    for program in schedules:
         hour, minute = map(int, program['time'].split(':'))
-        program_wday = wday[program['wday']]
+        program_wday = wday_to_int[program['wday']]
         program_time = dt.time(hour, minute, 0)
 
         # 0:00に始まる番組だった場合:
         if hour == 0 and minute == 0:
-            next_wday = (now.weekday() + 1) % 7
+            next_wday = (datetime_now.weekday() + 1) % 7
             is_appropriate_wday = (program_wday == next_wday)
-            program_date = now.date() + dt.timedelta(days=+1)
+            program_date = datetime_now.date() + dt.timedelta(days=+1)
         else:
-            is_appropriate_wday = (program_wday == now.weekday())
-            program_date = now.date()
+            is_appropriate_wday = (program_wday == datetime_now.weekday())
+            program_date = datetime_now.date()
 
         # 番組が2分以内に始まる/始まったか?
         is_appropriate_time \
-            = time_diff(now.time(), program_time) < dt.timedelta(minutes=2)
+            = time_diff(datetime_now.time(), program_time) < dt.timedelta(minutes=2)
 
         if is_appropriate_wday and is_appropriate_time:
-            program_start = dt.datetime.combine(program_date, program_time)
             length = str(program['length'] * 60)
             title = program_date.strftime('%Y%m%d') + '_' + program['title']
-            path = '{0}/{1}.flv'.format(save_dir, title)
-            rec_command = [rtmpdump, '--quiet', '-r', agqr_stream_url,
+            path = '{0}/{1}.flv'.format(path_savedir, title)
+            rec_command = [path_rtmpdump, '--quiet', '-r', URL_AGQR_STREAM,
                            '--live', '-B', length, '-o', path]
-            print(' '.join(rec_command))
 
-            retval = subprocess.Popen(rec_command,
-                                      stdout=subprocess.PIPE,
-                                      stderr=subprocess.PIPE)
+            print(' '.join(rec_command))
+            _ = subprocess.Popen(rec_command, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 
             break
