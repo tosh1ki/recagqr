@@ -1,9 +1,7 @@
-recagqr.py
+recagqr: AGQR の番組を録画する
 ============
 
-agqrの番組を録画するためのプログラム
-
-[agqr.rb](https://gist.github.com/ybenjo/9904543) をPythonに書き直して手を加えた．
+[agqr.rb](https://gist.github.com/ybenjo/9904543) を Python に書き直して手を加えた．
 
 # ファイルの説明
 ## recagqr.py
@@ -22,27 +20,29 @@ agqrの番組を録画するためのプログラム
 ```
 
 ## doctest.txt
-`time_diff()`用のtestdoc
+`time_diff()` 用の testdoc
 
-  `python -m doctest -v doctest.txt` で実行
+`python3 -m doctest -v doctest.txt` で実行
   
 ## crontab.bk
-crontabの設定ファイルのバックアップ
+crontab の設定ファイルのバックアップ
 
-`crontab -e` でcrontabに設定後，以下のコマンドを実行して生成する．
+`crontab -e` で crontab に設定後，以下のコマンドを実行して生成する．
 
 ```sh
 crontab -l > ~/crontab.bk
 ```
 
-crontab に指定するコマンドは絶対パスで指定しないとエラーになる．
+# 各種設定など
+## crontab の設定
+以下のように crontab を設定しておく．
 
 ```sh
 MAILTO=""
-29,59 * * * * python3 /path/to/recagqr.py --rtmpdump /usr/local/bin/rtmpdump --schedule /path/to/schedule.yaml --savedir /path/to/recdata >> /path/to/cron-recagqr.log
+29,59 * * * * python3 /path/to/recagqr.py --schedule /path/to/schedule.yaml --savedir /path/to/recdata >> ~/cron-recagqr.log
 ```
 
-# 実行ログの確認
+## 実行ログの確認
 
 ```sh
 tail /var/log/syslog
