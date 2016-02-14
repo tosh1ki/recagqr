@@ -39,7 +39,7 @@ crontab に指定するコマンドは絶対パスで指定しないとエラー
 
 ```sh
 MAILTO=""
-29,59 * * * * python3 /path/to/recagqr.py >> /path/to/cron.log
+29,59 * * * * python3 /path/to/recagqr.py  --rtmpdump /usr/local/bin/rtmpdump --schedule /path/to/schedule.yaml --savedir /path/to/recdata >> /path/to/cron-recagqr.log
 ```
 
 # その他メモ
@@ -47,7 +47,7 @@ MAILTO=""
 
 ```sh
 tail /var/log/syslog
-tail ~/RTMPDump/cron.log
+tail ~/cron-recagqr.log
 ```
 
 ## Windowsにファイルを転送する

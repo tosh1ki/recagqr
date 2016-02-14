@@ -2,15 +2,27 @@
 # -*- coding: utf-8 -*-
 
 
-import os
+__doc__ = '''Record AGQR
+
+Usage:
+    recagqr.py --rtmpdump <rtmpdump> --schedule <schedule> --savedir <savedir>
+
+Options:
+    --rtmpdump <rtmpdump>  path of rtmpdump
+    --schedule <schedule>  path of schedule file of yaml format
+    --savedir <savedir>  path of output directory
+'''
+
+
 import subprocess
 import yaml
 import time
 import datetime as dt
+from docopt import docopt
 
 
 def time_diff(t1, t2):
-    u''' 時刻 t1, t2 の差を計算する．
+    ''' 時刻 t1, t2 の差を計算する．
     t1 > t2 の場合を考慮しているので面倒なことをしている．
     '''
     dt1 = dt.datetime(2011, 1, 1, t1.hour, t1.minute, t1.second)
@@ -22,9 +34,12 @@ def time_diff(t1, t2):
 
 
 if __name__ == '__main__':
-    rtmpdump = os.path.expanduser('~/RTMPDump/rtmpdump/rtmpdump')
-    save_dir = os.path.expanduser('~/RTMPDump/recdata')
-    schedule = os.path.expanduser('~/RTMPDump/schedule.yaml')
+
+    # コマンドライン引数の取得
+    args = docopt(__doc__)
+    rtmpdump = args['--rtmpdump']
+    schedule = args['--schedule']
+    save_dir = args['--savedir']
 
     agqr_stream_url = 'rtmp://fms-base1.mitene.ad.jp/agqr/aandg22'
     now = dt.datetime.today()
@@ -35,6 +50,7 @@ if __name__ == '__main__':
         schedule_yaml = yaml.load(f)
 
     # 60秒前にcronが起動するので45秒sleepさせておく
+    # ちょうどCM一本分の余裕になる(はず)
     time.sleep(45)
 
     for program in schedule_yaml:
@@ -64,8 +80,8 @@ if __name__ == '__main__':
                            '--live', '-B', length, '-o', path]
             print(' '.join(rec_command))
 
-            retval = subprocess.Popen(
-                rec_command, stdout=subprocess.PIPE, stderr=subprocess.PIPE
-            )
+            retval = subprocess.Popen(rec_command,
+                                      stdout=subprocess.PIPE,
+                                      stderr=subprocess.PIPE)
 
             break

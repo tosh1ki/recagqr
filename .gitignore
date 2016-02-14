@@ -1,0 +1,5 @@
+agqr.rb
+*.pyc
+*~
+.cache/*
+crontab.bk
